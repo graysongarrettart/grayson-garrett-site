@@ -966,7 +966,7 @@
         description: "The Top Hand is the real backbone of the workforce — steady, competent, and respected by everyone on the floor. He's the go-to guy when things go wrong, which is often, and while he's technically under The Gaffer, it's clear who's actually holding things together. He doesn't crave power; he finds purpose in being the one everyone can rely on, keeping things running amid the constant chaos.",
         pieces: [
           { src:'assets/projects/neutronic-nonsense/imgi_5_Neutronic+Nonsense_The+Top+Hand.jpg', label:'Main Pose', ratio:'1/1' },
-          { src:'assets/projects/neutronic-nonsense/top-hand-sheet.jpg', label:'Character Sheet', ratio:'16/9' },
+          { src:'assets/projects/neutronic-nonsense/TheTopHand_CharacterSheet.png', label:'Character Sheet', ratio:'16/9' },
         ]
       },
       3: {
