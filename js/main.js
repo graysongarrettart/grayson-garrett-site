@@ -974,7 +974,7 @@
         description: "The Pusher landed his spot through connections, not skill. He's the son of a bigwig upstairs, so despite being clueless, he's in a position of authority — constantly giving misguided orders and saved time and again by The Top Hand. People follow him out of obligation, knowing exactly whose son he is, but everyone sees through the bluster: a boss in title only.",
         pieces: [
           { src:'assets/projects/neutronic-nonsense/imgi_6_Neutronic+Nonsense_The+Pusher.jpg', label:'Main Pose', ratio:'1/1' },
-          { src:'assets/projects/neutronic-nonsense/pusher-sheet.jpg', label:'Character Sheet', ratio:'16/9' },
+          { src:'assets/projects/neutronic-nonsense/ThePusher_CharacterSheet.png', label:'Character Sheet', ratio:'16/9' },
         ]
       },
       4: {
