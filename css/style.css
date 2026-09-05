@@ -227,7 +227,7 @@ h1,h2,h3{ margin:0; font-family: var(--mono); font-weight: 800; text-transform: 
 .grid7{ display:grid; grid-template-columns: repeat(12, 1fr); gap: var(--gap); }
 .t-feature{ grid-column: span 12; aspect-ratio: 1140 / 641; }
 .t-half{ grid-column: span 6; aspect-ratio: 560 / 641; }
-.t-quarter{ grid-column: span 6; aspect-ratio: 560 / 315; }
+.t-quarter{ grid-column: span 4; aspect-ratio: 560 / 315; }
 @media (max-width: 760px){
   .t-feature, .t-half, .t-quarter{ grid-column: span 12; aspect-ratio: 4/3; }
 }
@@ -627,7 +627,9 @@ h1,h2,h3{ margin:0; font-family: var(--mono); font-weight: 800; text-transform: 
 .center-block{ text-align:center; max-width:78ch; margin:0 auto; }
 
 /* ==========================================================================
-   ETA concept browser: selector grid + detail panel (main + vertical thumb stack)
+   Concept browser: selector grid + detail panel (main + vertical thumb stack)
+   Currently unused (was built for a page that's since been removed) — kept
+   in case a future project needs this same pattern.
    ========================================================================== */
 .concept-grid{ display:flex; flex-wrap:wrap; gap: var(--gap); }
 .concept-card{
@@ -961,7 +963,7 @@ body.sketchbook-page{ height:100vh; overflow:hidden; }
 
 /* ==========================================================================
    Daughters of Steel character browser (description-only-per-character,
-   like ETA Transact's concept browser — not per-piece like CAPES)
+   simpler than CAPES — no per-piece description, just per-character)
    ========================================================================== */
 .dos-grid{ display:flex; flex-wrap:wrap; gap: var(--gap); }
 .dos-card{
