@@ -227,7 +227,7 @@ h1,h2,h3{ margin:0; font-family: var(--mono); font-weight: 800; text-transform: 
 .grid7{ display:grid; grid-template-columns: repeat(12, 1fr); gap: var(--gap); }
 .t-feature{ grid-column: span 12; aspect-ratio: 1140 / 641; }
 .t-half{ grid-column: span 6; aspect-ratio: 560 / 641; }
-.t-quarter{ grid-column: span 4; aspect-ratio: 560 / 315; }
+.t-quarter{ grid-column: span 6; aspect-ratio: 560 / 315; }
 @media (max-width: 760px){
   .t-feature, .t-half, .t-quarter{ grid-column: span 12; aspect-ratio: 4/3; }
 }
@@ -611,8 +611,13 @@ h1,h2,h3{ margin:0; font-family: var(--mono); font-weight: 800; text-transform: 
    Auto-scrolling image strip (continuous marquee, pauses on hover)
    ========================================================================== */
 .auto-carousel{ position:relative; overflow:hidden; border:1px solid var(--line); background:var(--black-2); aspect-ratio:1140/300; }
-.auto-carousel-track{ position:absolute; inset:0; display:flex; width:max-content; animation: auto-scroll 26s linear infinite; }
-.auto-carousel:hover .auto-carousel-track{ animation-play-state:paused; }
+.auto-carousel::before, .auto-carousel::after{
+  content:''; position:absolute; top:0; bottom:0; width: clamp(40px,7vw,100px); z-index:5; pointer-events:none;
+}
+.auto-carousel::before{ left:0; background: linear-gradient(to right, var(--black-2), rgba(18,17,16,0)); }
+.auto-carousel::after{ right:0; background: linear-gradient(to left, var(--black-2), rgba(18,17,16,0)); }
+.auto-carousel-track{ position:absolute; inset:0; display:flex; width:max-content; animation: auto-scroll 45s linear infinite; }
+.auto-carousel:hover .auto-carousel-track, .auto-carousel.paused .auto-carousel-track{ animation-play-state:paused; }
 .auto-carousel-track .ac-item{ position:relative; flex:0 0 auto; width: clamp(220px,26vw,320px); height:100%; border-right:1px solid var(--line); overflow:hidden; cursor:zoom-in; }
 .auto-carousel-track img{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; opacity:.85; transition:opacity .3s; }
 .auto-carousel-track .ac-item:hover img{ opacity:1; }
@@ -1050,4 +1055,69 @@ body.sketchbook-page{ height:100vh; overflow:hidden; }
   .nn-detail-grid{ grid-template-columns:1fr; }
   .nn-thumbs{ flex-direction:row; align-self:auto; margin-top:10px; }
   .nn-thumbs .carousel-thumb{ aspect-ratio:1/1; flex:1; }
+}
+
+/* ==========================================================================
+   ArcLabs — generic main+thumb selector (reused for Partnership Beginnings
+   and Same Brand/Different Conversation sections)
+   ========================================================================== */
+.mt-block{ display:grid; grid-template-columns: 1fr auto; gap: var(--gap); align-items:start; max-width:680px; }
+.mt-main{ position:relative; overflow:hidden; border:1px solid var(--line); background: var(--black-2); cursor:zoom-in; }
+.mt-main img{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; opacity:1; transition: opacity .35s var(--ease), transform .35s var(--ease); }
+.mt-main img.swap{ opacity:0; transform:scale(1.03); }
+.mt-thumbs{ display:flex; flex-direction:column; gap:10px; }
+.mt-thumbs button{ position:relative; display:block; padding:0; border:1px solid var(--line); background:var(--black-2); cursor:pointer; overflow:hidden; }
+.mt-thumbs button.active{ border-color: var(--orange); }
+.mt-thumbs button img{ display:block; width:100%; height:100%; object-fit:cover; opacity:.75; transition:opacity .25s; }
+.mt-thumbs button:hover img, .mt-thumbs button.active img{ opacity:1; }
+
+@media (max-width:760px){
+  .mt-block{ grid-template-columns:1fr; }
+  .mt-thumbs{ flex-direction:row; margin-top:10px; }
+  .mt-thumbs button{ flex:1; }
+}
+
+/* ==========================================================================
+   ArcLabs — flagship piece selector (main image + 4 thumbs w/ flanking arrows)
+   ========================================================================== */
+.flagship-main{ position:relative; overflow:hidden; border:1px solid var(--line); background: var(--black-2); aspect-ratio:771/435; cursor:zoom-in; max-width:620px; margin:0 auto; }
+.flagship-main img{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; opacity:1; transition: opacity .35s var(--ease), transform .35s var(--ease); }
+.flagship-main img.swap{ opacity:0; transform:scale(1.03); }
+.flagship-row{ display:flex; align-items:center; gap:14px; margin-top: var(--gap); max-width:620px; margin-left:auto; margin-right:auto; }
+.flagship-thumbs{ display:flex; gap: var(--gap); flex:1 1 auto; }
+.flagship-thumbs button{ position:relative; flex:1 1 0; aspect-ratio:235/133; padding:0; border:1px solid var(--line); background:var(--black-2); cursor:pointer; overflow:hidden; }
+.flagship-thumbs button.active{ border-color: var(--orange); }
+.flagship-thumbs button img{ display:block; width:100%; height:100%; object-fit:cover; opacity:.75; transition:opacity .25s; }
+.flagship-thumbs button:hover img, .flagship-thumbs button.active img{ opacity:1; }
+.flagship-arrow{ flex:0 0 auto; width:40px; height:40px; border:1px solid var(--line); background:transparent; color:var(--white); cursor:pointer; display:flex; align-items:center; justify-content:center; transition: border-color .2s, color .2s; }
+.flagship-arrow:hover{ border-color: var(--orange); color: var(--orange); }
+.flagship-arrow svg{ width:18px; height:18px; }
+
+@media (max-width:760px){
+  .flagship-thumbs{ flex-wrap:wrap; }
+  .flagship-thumbs button{ flex:1 1 calc(50% - var(--gap)/2); }
+}
+
+/* ==========================================================================
+   ArcLabs — two-up grid that stays 2 columns on mobile (not the usual stack)
+   ========================================================================== */
+.two-up-mobile{ display:grid; grid-template-columns:1fr 1fr; gap: var(--gap); max-width:460px; margin:0 auto; }
+
+/* ==========================================================================
+   Row-locked 2-column grid: keeps matching row (heading/body/image) aligned
+   across both columns on desktop regardless of differing text length,
+   while still stacking in natural reading order on mobile.
+   Expects exactly 6 direct children: L-head, L-body, L-image, R-head, R-body, R-image.
+   ========================================================================== */
+.rowlock-grid{ display:grid; grid-template-columns:1fr 1fr; gap: var(--gap) clamp(30px,4vw,60px); }
+@media (min-width:761px){
+  .rowlock-grid > *:nth-child(1){ grid-column:1; grid-row:1; }
+  .rowlock-grid > *:nth-child(2){ grid-column:1; grid-row:2; }
+  .rowlock-grid > *:nth-child(3){ grid-column:1; grid-row:3; align-self:start; }
+  .rowlock-grid > *:nth-child(4){ grid-column:2; grid-row:1; }
+  .rowlock-grid > *:nth-child(5){ grid-column:2; grid-row:2; }
+  .rowlock-grid > *:nth-child(6){ grid-column:2; grid-row:3; align-self:start; }
+}
+@media (max-width:760px){
+  .rowlock-grid{ grid-template-columns:1fr; }
 }

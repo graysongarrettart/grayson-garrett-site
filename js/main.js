@@ -1057,3 +1057,73 @@
     }
   }
 })();
+
+  /* ---------------- Auto-carousel: pause on touch so mobile taps land reliably
+     (a continuously moving target under a finger otherwise reads as a scroll,
+     not a click) ---------------- */
+  document.querySelectorAll('.auto-carousel').forEach((carousel)=>{
+    carousel.addEventListener('touchstart', ()=> carousel.classList.add('paused'), { passive:true });
+    carousel.addEventListener('touchend', ()=> setTimeout(()=> carousel.classList.remove('paused'), 400));
+  });
+
+  /* ---------------- Generic main+thumb selector blocks (ArcLabs: Partnership
+     Beginnings, Same Brand/Different Conversation) — handles multiple
+     independent instances on the same page ---------------- */
+  document.querySelectorAll('.mt-block').forEach((block)=>{
+    const mainWrap = block.querySelector('.mt-main');
+    const mainImg = mainWrap ? mainWrap.querySelector('img') : null;
+    const thumbBtns = Array.from(block.querySelectorAll('.mt-thumbs button'));
+    if(!mainWrap || !mainImg || !thumbBtns.length) return;
+
+    const srcs = thumbBtns.map((b)=> b.getAttribute('data-full'));
+    let activeIndex = thumbBtns.findIndex((b)=> b.classList.contains('active'));
+    if(activeIndex < 0) activeIndex = 0;
+
+    function setActive(idx){
+      activeIndex = idx;
+      thumbBtns.forEach((b, i)=> b.classList.toggle('active', i === idx));
+      mainImg.classList.add('swap');
+      setTimeout(()=>{
+        mainImg.src = srcs[idx];
+        mainImg.classList.remove('swap');
+      }, 180);
+    }
+
+    thumbBtns.forEach((b, i)=>{
+      b.addEventListener('click', ()=> setActive(i));
+    });
+
+    mainWrap.addEventListener('click', ()=>{
+      if(window.__openLightbox) window.__openLightbox(srcs, activeIndex, mainImg);
+    });
+  });
+
+  /* ---------------- ArcLabs flagship piece: main image + 4-thumb selector w/ arrows ---------------- */
+  (function(){
+    const mainWrap = document.getElementById('flagshipMain');
+    if(!mainWrap) return;
+    const mainImg = mainWrap.querySelector('img');
+    const thumbsEl = document.getElementById('flagshipThumbs');
+    const thumbBtns = Array.from(thumbsEl.querySelectorAll('button'));
+    const prevBtn = document.getElementById('flagshipPrev');
+    const nextBtn = document.getElementById('flagshipNext');
+    const srcs = thumbBtns.map((b)=> b.getAttribute('data-full'));
+    let activeIndex = 0;
+
+    function setActive(idx){
+      activeIndex = (idx + srcs.length) % srcs.length;
+      thumbBtns.forEach((b, i)=> b.classList.toggle('active', i === activeIndex));
+      mainImg.classList.add('swap');
+      setTimeout(()=>{
+        mainImg.src = srcs[activeIndex];
+        mainImg.classList.remove('swap');
+      }, 180);
+    }
+
+    thumbBtns.forEach((b, i)=> b.addEventListener('click', ()=> setActive(i)));
+    prevBtn.addEventListener('click', ()=> setActive(activeIndex - 1));
+    nextBtn.addEventListener('click', ()=> setActive(activeIndex + 1));
+    mainWrap.addEventListener('click', ()=>{
+      if(window.__openLightbox) window.__openLightbox(srcs, activeIndex, mainImg);
+    });
+  })();
