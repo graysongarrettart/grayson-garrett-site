@@ -1061,7 +1061,7 @@ body.sketchbook-page{ height:100vh; overflow:hidden; }
    ArcLabs — generic main+thumb selector (reused for Partnership Beginnings
    and Same Brand/Different Conversation sections)
    ========================================================================== */
-.mt-block{ display:grid; grid-template-columns: 1fr auto; gap: var(--gap); align-items:start; max-width:680px; }
+.mt-block{ display:grid; grid-template-columns: 1fr auto; gap: var(--gap); align-items:start; max-width:680px; margin:0 auto; }
 .mt-main{ position:relative; overflow:hidden; border:1px solid var(--line); background: var(--black-2); cursor:zoom-in; }
 .mt-main img{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; opacity:1; transition: opacity .35s var(--ease), transform .35s var(--ease); }
 .mt-main img.swap{ opacity:0; transform:scale(1.03); }
