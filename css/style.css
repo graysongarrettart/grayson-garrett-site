@@ -1121,3 +1121,26 @@ body.sketchbook-page{ height:100vh; overflow:hidden; }
 @media (max-width:760px){
   .rowlock-grid{ grid-template-columns:1fr; }
 }
+
+/* ---------------- Mode grid: curated grouping rows, image only (no captions) ----------------
+   Capped tile width on desktop so a short row (e.g. 4 items) doesn't blow up
+   to fill the full 1140px column; still wraps naturally and fills the width
+   on mobile. ---------------- */
+.mode-grid{ display:grid; grid-template-columns: repeat(auto-fill, minmax(150px, 190px)); gap: var(--gap); margin-top:28px; }
+.mode-tile{ position:relative; display:block; overflow:hidden; border:1px solid var(--line); background: var(--black-2); aspect-ratio: 4/5; cursor:zoom-in; }
+.mode-tile img{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; opacity:.9; transition: opacity .3s, transform .45s var(--ease); }
+.mode-tile:hover img{ opacity:1; transform:scale(1.04); }
+@media (max-width:560px){
+  .mode-grid{ grid-template-columns: repeat(auto-fill, minmax(128px, 1fr)); }
+}
+
+/* ---------------- Process two-up: finished design vs. its separation breakdown ----------------
+   Capped max-width on desktop so the pair doesn't stretch oversized on wide
+   monitors; full-width stacked on mobile. ---------------- */
+.process-two-up{ display:grid; grid-template-columns:1fr 1fr; gap: var(--gap); align-items:start; }
+.process-two-up figure{ margin:0; border:1px solid var(--line); background:var(--black-2); overflow:hidden; cursor:zoom-in; position:relative; aspect-ratio: 3/4; }
+.process-two-up img{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; opacity:.92; transition:opacity .3s, transform .45s var(--ease); }
+.process-two-up figure:hover img{ opacity:1; transform:scale(1.03); }
+.process-two-up figcaption{ position:absolute; left:0; right:0; bottom:0; padding:12px 14px; background:linear-gradient(to top, rgba(10,10,10,.88), rgba(10,10,10,0)); font-family:var(--mono); font-weight:700; text-transform:uppercase; font-size:11.5px; letter-spacing:.04em; color:var(--white); }
+@media (min-width:1000px){ .process-two-up{ max-width:820px; margin:0 auto; } }
+@media (max-width:760px){ .process-two-up{ grid-template-columns:1fr; } }
